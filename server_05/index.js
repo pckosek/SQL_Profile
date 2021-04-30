@@ -51,25 +51,25 @@ app.post('/update_profile', function(req, res){
     var user_no = parseInt(req.body.profile_id);
     if (isNaN(user_no)) {
         res.send('ERROR - Please enter a numeric ID :)');
-    } else {
+        return;
+    } 
     
-        var nickname = req.body.nickname;
-    
-        // just for fun, retain the user's id number in the session
-        req.session.user_id = user_no;
-    
-        
-        // UPSERT COMMAND 
-        // THE RIGHT WAY
-        var sql = 'INSERT INTO profile(id, nickname) VALUES (?,?) ON DUPLICATE KEY UPDATE nickname = VALUES(nickname);'
-    
-        var params_array = [user_no, nickname];
-    
-        pool.query(sql, params_array, function(error, results, fields){
-            if (error) throw error;
-            res.redirect('https://user.tjhsst.edu/pckosek/profile')
-        })    
-    }
+    var nickname = req.body.nickname;
+
+    // just for fun, retain the user's id number in the session
+    req.session.user_id = user_no;
+
+
+    // UPSERT COMMAND 
+    // THE RIGHT WAY
+    var sql = 'INSERT INTO profile(id, nickname) VALUES (?,?) ON DUPLICATE KEY UPDATE nickname = VALUES(nickname);'
+
+    var params_array = [user_no, nickname];
+
+    pool.query(sql, params_array, function(error, results, fields){
+        if (error) throw error;
+        res.redirect('https://user.tjhsst.edu/pckosek/profile')
+    })    
 });
 
 

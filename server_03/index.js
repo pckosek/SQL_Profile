@@ -3,13 +3,8 @@ var app = express();
 var mysql = require('mysql');
 
 var hbs = require('hbs')
-var bodyParser  = require('body-parser')
-
 app.set('view engine', 'hbs');
 
-// -------------- body-parser initialization -------------- //
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
 
 // -------------- mysql initialization -------------- //
 // USE PARAMETERS FROM DIRECTOR DOCS!!!
@@ -36,11 +31,11 @@ app.get('/profile_form', function(req, res){
     res.render('profile_form')
 });
 
-app.post('/update_profile', function(req, res){
+app.get('/update_profile', function(req, res){
     
     
     var user_no = 1000;
-    var nickname = req.body.nickname;
+    var nickname = req.query.nickname;
     
     // UPSERT COMMAND 
     

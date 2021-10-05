@@ -27,7 +27,7 @@ var pool  = mysql.createPool(sql_params);
 
 
 app.get('/', function(req,res){
-    res.render('sql_navigation')
+    res.render('profile_navigation')
 })
 
 
